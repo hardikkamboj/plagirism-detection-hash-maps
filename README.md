@@ -74,6 +74,7 @@ Your document
 ├── similarity.py        Hash matching and Jaccard similarity scorer
 ├── corpus.py            Loads corpus.csv into the index with metadata
 ├── detector.py          Main entry point: builds the index and runs a query
+├── app.py               Streamlit web interface for interactive plagiarism detection
 ├── generate_corpus.py   Generates a synthetic corpus from Project Gutenberg books
 ├── convert.py           Utility for corpus format conversion
 └── README.md
@@ -86,7 +87,11 @@ Your document
 ### Requirements
 
 - Python 3.10 or higher
-- No pip installs required — standard library only
+- Standard library only for the core detector
+- Streamlit is required only if you want to use the web interface:
+```bash
+pip install streamlit
+```
 
 ### Step 1: Generate the Corpus
 
@@ -102,11 +107,19 @@ Note: `corpus.csv` is excluded from version control via `.gitignore`. You must g
 
 ### Step 2: Run the Detector
 
+**Option A: Command line**
 ```bash
 python detector.py
 ```
 
-To test with a known plagiarised passage, open `detector.py` and replace the `query_text` value with any text from the corpus. The script will print the top matching documents along with their Jaccard similarity scores and ground-truth labels.
+To test with a known plagiarised passage, open `detector.py` and replace the `query_text` value with any text from the corpus. The script will print the top matching documents along with their Jaccard similarity scores.
+
+**Option B: Web interface (requires streamlit)**
+```bash
+streamlit run app.py
+```
+
+This opens a browser-based UI where you can paste any text, adjust the k-gram size and similarity threshold, and see flagged matches with scores in real time.
 
 ### Expected Output
 
